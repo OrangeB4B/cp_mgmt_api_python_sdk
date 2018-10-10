@@ -4,7 +4,7 @@ stages:
 
 package:
   stage: package
-  image: python:3-alpine
+  image: python:2.7-alpine
   script:
     - python setup.py sdist bdist_wheel
   artifacts:
@@ -18,7 +18,7 @@ package:
 
 publish:
   stage: publish
-  image: python:3
+  image: python:2.7
   script:
     - pip install twine
     - twine upload
