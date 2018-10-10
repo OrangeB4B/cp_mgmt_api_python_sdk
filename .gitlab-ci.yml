@@ -1,0 +1,34 @@
+stages:
+  - package
+  - publish
+
+package:
+  stage: package
+  image: python:2.7-alpine
+  script:
+    - python setup.py sdist bdist_wheel
+  artifacts:
+    paths:
+      - dist
+  tags:
+    - docker
+    - aws
+    - private
+
+
+publish:
+  stage: publish
+  image: python:2.7
+  script:
+    - pip install twine
+    - twine upload
+        --repository-url ${NEXUS_URL}repository/pypi-hosted/
+        --username ${NEXUS_USER}
+        --password ${NEXUS_PWD}
+        dist/*
+  only:
+    - tags
+  tags:
+    - docker
+    - aws
+    - private
