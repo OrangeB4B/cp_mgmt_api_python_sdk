@@ -10,6 +10,11 @@ package:
   artifacts:
     paths:
       - dist
+  tags:
+    - docker
+    - aws
+    - private
+
 
 publish:
   stage: publish
@@ -23,3 +28,7 @@ publish:
         dist/*
   only:
     - tags
+  tags:
+    - docker
+    - aws
+    - private
